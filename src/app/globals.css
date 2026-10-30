@@ -1,0 +1,91 @@
+@import "tailwindcss";
+
+@theme {
+  --color-cream: #fbf7f1;
+  --color-sand: #f3ebdf;
+  --color-gold: #b08d57;
+  --color-gold-dark: #8c6d3f;
+  --color-gold-light: #e6d3a8;
+  --color-sage: #8a9a7b;
+  --color-sage-dark: #6f7e62;
+  --color-blush: #e8cfc6;
+  --color-blush-dark: #d4aea1;
+  --color-ink: #3f3a34;
+  --color-muted: #7a7166;
+
+  --animate-sway: sway 7s ease-in-out infinite;
+  --animate-fall: fall 14s linear infinite;
+  --animate-kenburns: kenburns 18s ease-out forwards;
+  --animate-float: float 4s ease-in-out infinite;
+
+  @keyframes sway {
+    0%,
+    100% {
+      transform: rotate(-1.5deg);
+    }
+    50% {
+      transform: rotate(1.5deg);
+    }
+  }
+
+  @keyframes fall {
+    0% {
+      transform: translate(0, -5vh) rotate(0deg);
+      opacity: 0;
+    }
+    10% {
+      opacity: 0.9;
+    }
+    100% {
+      transform: translate(80px, 105vh) rotate(540deg);
+      opacity: 0;
+    }
+  }
+
+  @keyframes kenburns {
+    from {
+      transform: scale(1);
+    }
+    to {
+      transform: scale(1.12);
+    }
+  }
+
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-6px);
+    }
+  }
+}
+
+@theme inline {
+  --font-script: var(--font-great-vibes);
+  --font-serif: var(--font-cormorant);
+  --font-sans: var(--font-poppins);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  color: var(--color-ink);
+  background-color: var(--color-sand);
+  background-image:
+    radial-gradient(circle at 20% 10%, rgb(232 207 198 / 0.35), transparent 40%),
+    radial-gradient(circle at 80% 90%, rgb(138 154 123 / 0.2), transparent 45%);
+  background-attachment: fixed;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-sway,
+  .animate-fall,
+  .animate-kenburns,
+  .animate-float {
+    animation: none;
+  }
+}
