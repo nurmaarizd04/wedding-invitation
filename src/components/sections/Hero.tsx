@@ -1,5 +1,6 @@
 import { wedding } from "@/data/wedding";
 import { formatShortDate, googleCalendarUrl } from "@/lib/format";
+import Bokeh from "../Bokeh";
 import Countdown from "../Countdown";
 import { CalendarIcon } from "../icons";
 import { Wave } from "../ui";
@@ -14,12 +15,22 @@ export default function Hero() {
   const lastEvent = events[events.length - 1];
 
   return (
-    <section id="home" className="relative flex min-h-svh items-end overflow-hidden text-white">
-      {/* Foto: zoom-out dramatis saat dibuka, lalu bergerak perlahan */}
-      <div className="absolute inset-0 scale-[1.35] transition-transform delay-300 duration-[3200ms] ease-out-expo will-change-transform opened:scale-100">
-        <img decoding="async" src={heroPhoto} alt="" className="h-full w-full animate-kenburns object-cover will-change-transform" />
+    <section id="home" className="grain relative flex min-h-svh items-end overflow-hidden text-white">
+      {/* Lapisan foto: bergerak lebih lambat dari teks saat di-scroll (parallax) */}
+      <div className="scroll-hero-bg absolute inset-0">
+        {/* Zoom-out dramatis saat dibuka, lalu bergerak perlahan */}
+        <div className="absolute inset-0 scale-[1.35] transition-transform delay-300 duration-[3200ms] ease-out-expo will-change-transform opened:scale-100">
+          <img
+            decoding="async"
+            src={heroPhoto}
+            alt=""
+            className="h-full w-full animate-kenburns object-cover will-change-transform"
+          />
+        </div>
       </div>
       <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-transparent via-40% to-black/85" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_45%,rgb(0_0_0/0.45)_100%)]" />
+      <Bokeh />
 
       {/* Kilatan cahaya hangat yang memudar */}
       <div
@@ -27,11 +38,12 @@ export default function Hero() {
         className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_45%,#fffaf0_0%,rgb(255_250_240/0.75)_35%,transparent_80%)] transition-opacity delay-700 duration-[2200ms] opened:opacity-0"
       />
 
-      <div className="relative w-full px-6 pb-20 pt-32 text-center">
+      <div className="scroll-hero-content relative w-full px-6 pb-20 pt-32 text-center">
         <p className={`${ENTER} font-serif text-xs uppercase tracking-[0.4em] text-white/85 delay-[1300ms]`}>
           We are getting married
         </p>
-        <h2 className="mt-3 scale-90 font-script text-6xl leading-tight opacity-0 blur-sm drop-shadow-lg transition-[opacity,scale,filter] delay-[1500ms] duration-[1600ms] ease-out-expo opened:scale-100 opened:opacity-100 opened:blur-none">
+        {/* Nama "tertulis" dari kiri ke kanan */}
+        <h2 className="title-write mt-3 px-2 pb-2 font-script text-6xl leading-tight drop-shadow-lg opened:animate-write-late">
           {groom.nickname} <span className="text-gold-light">&amp;</span> {bride.nickname}
         </h2>
         <p className={`${ENTER} mt-4 font-serif text-lg tracking-[0.3em] delay-[1900ms]`}>

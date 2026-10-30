@@ -32,6 +32,12 @@ export type StoryItem = {
   photo?: string;
 };
 
+export type Interlude = {
+  photo: string;
+  title: string;
+  text: string;
+};
+
 export type GiftAccount = {
   /** Nama bank atau e-wallet, contoh: "BCA", "Mandiri", "DANA" */
   provider: string;
@@ -52,6 +58,8 @@ export type Wedding = {
   footerPhoto: string;
   quote: { text: string; source: string };
   story: StoryItem[];
+  /** Dua jeda foto layar penuh: [0] setelah Mempelai, [1] setelah Waktu & Tempat */
+  interludes: [Interlude, Interlude];
   events: WeddingEvent[];
   gallery: string[];
   gift: {
@@ -120,6 +128,18 @@ export const wedding: Wedding = {
       title: "Hari Bahagia",
       text: "Kami memutuskan untuk melangkah bersama dalam ikatan suci pernikahan. Mohon doa restu dari Bapak/Ibu/Saudara/i.",
       photo: sample("1606800052052-a08af7148866", 800),
+    },
+  ],
+  interludes: [
+    {
+      photo: sample("1460978812857-470ed1c77af0", 1200),
+      title: "Forever & Always",
+      text: "Dua hati yang dipertemukan oleh takdir, kini berjanji untuk saling menjaga selamanya.",
+    },
+    {
+      photo: sample("1544078751-58fee2d8a03b", 1200),
+      title: "Two Souls, One Heart",
+      text: "Kehadiran dan doa Anda adalah hadiah terindah di hari bahagia kami.",
     },
   ],
   events: [

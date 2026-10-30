@@ -28,6 +28,49 @@
   --animate-kb-3: kb-3 12s linear forwards;
   --animate-burst: burst 1.8s var(--ease-out-expo) both;
   --animate-seam: seam 1.2s ease-in-out forwards;
+  --animate-write: write 2.2s cubic-bezier(0.45, 0, 0.25, 1) forwards;
+  /* sama, tapi menunggu pintu cover terbuka dulu */
+  --animate-write-late: write 2.4s cubic-bezier(0.45, 0, 0.25, 1) 1.5s forwards;
+  --animate-rise: rise 14s linear infinite;
+  --animate-tick: tick 0.5s var(--ease-out-expo);
+
+  /* Tulisan muncul dari kiri ke kanan seperti ditulis pena (dipakai bersama .title-write) */
+  @keyframes write {
+    to {
+      -webkit-mask-position: 0 0;
+      mask-position: 0 0;
+    }
+  }
+
+  /* Cahaya bokeh melayang naik */
+  @keyframes rise {
+    0% {
+      transform: translate3d(0, 0, 0) scale(0.8);
+      opacity: 0;
+    }
+    20% {
+      opacity: 1;
+    }
+    80% {
+      opacity: 0.8;
+    }
+    100% {
+      transform: translate3d(20px, -60vh, 0) scale(1.1);
+      opacity: 0;
+    }
+  }
+
+  /* Angka hitung mundur bergulir */
+  @keyframes tick {
+    from {
+      transform: translateY(-40%);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
 
   @keyframes sway {
     0%,
@@ -141,6 +184,71 @@ body {
     radial-gradient(circle at 80% 90%, rgb(138 154 123 / 0.2), transparent 45%);
 }
 
+/* Masker untuk efek tulisan tangan; tersembunyi sampai animasi `write` berjalan */
+@utility title-write {
+  -webkit-mask-image: linear-gradient(90deg, #000 0%, #000 33%, transparent 66%, transparent 100%);
+  mask-image: linear-gradient(90deg, #000 0%, #000 33%, transparent 66%, transparent 100%);
+  -webkit-mask-size: 300% 100%;
+  mask-size: 300% 100%;
+  -webkit-mask-position: 100% 0;
+  mask-position: 100% 0;
+}
+
+/* Tekstur grain halus ala film */
+@utility grain {
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.09;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+}
+
+/* Efek yang mengikuti posisi scroll (dijalankan GPU; browser lama cukup tampil statis) */
+@keyframes parallax-y {
+  from {
+    transform: translate3d(0, -12%, 0);
+  }
+  to {
+    transform: translate3d(0, 12%, 0);
+  }
+}
+
+@keyframes hero-content-out {
+  to {
+    transform: translate3d(0, -30%, 0);
+    opacity: 0;
+  }
+}
+
+@keyframes hero-bg-out {
+  to {
+    transform: translate3d(0, 22%, 0);
+  }
+}
+
+@supports (animation-timeline: view()) {
+  .scroll-parallax {
+    animation: parallax-y linear both;
+    animation-timeline: view();
+    animation-range: cover;
+  }
+
+  .scroll-hero-content {
+    animation: hero-content-out linear both;
+    animation-timeline: scroll(root);
+    animation-range: 0 75vh;
+  }
+
+  .scroll-hero-bg {
+    animation: hero-bg-out linear both;
+    animation-timeline: scroll(root);
+    animation-range: 0 100vh;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .animate-sway,
   .animate-fall,
@@ -150,7 +258,19 @@ body {
   .animate-kb-2,
   .animate-kb-3,
   .animate-burst,
-  .animate-seam {
+  .animate-seam,
+  .animate-write,
+  .animate-write-late,
+  .animate-rise,
+  .animate-tick,
+  .scroll-parallax,
+  .scroll-hero-content,
+  .scroll-hero-bg {
     animation: none;
+  }
+
+  .title-write {
+    -webkit-mask-image: none;
+    mask-image: none;
   }
 }

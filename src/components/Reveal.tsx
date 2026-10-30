@@ -15,6 +15,12 @@ const VARIANTS = {
     shown: "scale-100 opacity-100",
     duration: "duration-[1300ms]",
   },
+  /** tanpa gerakan sendiri; anak elemen yang beranimasi lewat group-data */
+  none: {
+    hidden: "",
+    shown: "",
+    duration: "",
+  },
   /** terbuka dari bawah seperti tirai (untuk foto) */
   curtain: {
     hidden: "[clip-path:inset(100%_-10%_-10%_-10%)]",

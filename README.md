@@ -38,6 +38,7 @@ Semua isi diatur di satu file: **[`src/data/wedding.ts`](src/data/wedding.ts)**
 | `sidePhotos` | Slideshow foto di sisi kiri saat dibuka di laptop/desktop |
 | `footerPhoto` | Foto latar bagian penutup |
 | `story` | Kisah cinta: tanggal, judul, cerita, foto (kosongkan `[]` untuk menyembunyikan) |
+| `interludes` | Dua selingan foto layar penuh (setelah Mempelai & setelah Waktu & Tempat): foto, judul, kalimat |
 | `events` | Nama acara, waktu mulai/selesai, nama tempat, alamat, kata kunci Google Maps |
 | `gallery` | Daftar foto galeri |
 | `gift.accounts` | Bank / e-wallet, nomor rekening, atas nama |

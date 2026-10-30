@@ -6,11 +6,15 @@ import Footer from "@/components/sections/Footer";
 import Gallery from "@/components/sections/Gallery";
 import Gift from "@/components/sections/Gift";
 import Hero from "@/components/sections/Hero";
+import PhotoBreak from "@/components/sections/PhotoBreak";
 import Quote from "@/components/sections/Quote";
 import Story from "@/components/sections/Story";
 import Wishes from "@/components/sections/Wishes";
+import { wedding } from "@/data/wedding";
 
 export default function Home() {
+  const [afterCouple, afterEvents] = wedding.interludes;
+
   return (
     <InvitationShell>
       <div className="lg:flex">
@@ -22,8 +26,10 @@ export default function Home() {
             <Hero />
             <Quote />
             <Couple />
+            <PhotoBreak interlude={afterCouple} />
             <Story />
             <Events />
+            <PhotoBreak interlude={afterEvents} />
             <Gallery />
             <Gift />
             <Wishes />

@@ -57,7 +57,7 @@ export default function DesktopPanel() {
         <p className={`${ENTER} font-serif text-sm uppercase tracking-[0.4em] text-white/85 delay-[1200ms]`}>
           The Wedding of
         </p>
-        <h2 className={`${ENTER} mt-3 font-script text-8xl leading-tight delay-[1400ms]`}>
+        <h2 className="title-write mt-3 pb-2 pr-4 font-script text-8xl leading-tight opened:animate-write-late">
           {groom.nickname} <span className="text-gold-light">&amp;</span> {bride.nickname}
         </h2>
         <p className={`${ENTER} mt-2 font-serif text-2xl tracking-wide delay-[1600ms]`}>

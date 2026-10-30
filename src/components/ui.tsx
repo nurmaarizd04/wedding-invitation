@@ -12,7 +12,9 @@ export function SectionTitle({ eyebrow, title }: { eyebrow: string; title: strin
   return (
     <div className="mb-10 text-center">
       <p className="font-serif text-xs uppercase tracking-[0.35em] text-muted">{eyebrow}</p>
-      <h2 className="mt-2 font-script text-5xl text-gold-dark">{title}</h2>
+      <h2 className="title-write mt-2 px-2 pb-1 font-script text-5xl text-gold-dark group-data-[visible=true]/reveal:animate-write">
+        {title}
+      </h2>
       <Ornament className="mt-3" />
     </div>
   );
@@ -38,6 +40,19 @@ export function ArchPhoto({
       </div>
     </div>
   );
+}
+
+/** Teks yang muncul kata demi kata saat <Reveal variant="none"> induknya terlihat. */
+export function Words({ text, step = 45 }: { text: string; step?: number }) {
+  return text.split(" ").map((word, i) => (
+    <span
+      key={i}
+      style={{ transitionDelay: `${i * step}ms` }}
+      className="inline-block translate-y-2 opacity-0 blur-[3px] transition-[opacity,translate,filter] duration-700 ease-out group-data-[visible=true]/reveal:translate-y-0 group-data-[visible=true]/reveal:opacity-100 group-data-[visible=true]/reveal:blur-none"
+    >
+      {word}&nbsp;
+    </span>
+  ));
 }
 
 /** Foto di dalam <Reveal> yang ikut zoom-out halus saat muncul. */
