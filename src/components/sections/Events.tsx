@@ -1,6 +1,7 @@
 import { wedding } from "@/data/wedding";
-import { formatDateParts, formatTimeRange, googleCalendarUrl, mapsEmbedUrl, mapsUrl } from "@/lib/format";
+import { formatDateParts, formatTimeRange, googleCalendarUrl, mapsUrl } from "@/lib/format";
 import Floral from "../Floral";
+import MapEmbed from "../MapEmbed";
 import Reveal from "../Reveal";
 import { CalendarIcon, ClockIcon, MapPinIcon } from "../icons";
 import { SectionTitle } from "../ui";
@@ -69,13 +70,7 @@ export default function Events() {
                   </div>
                 </div>
 
-                <iframe
-                  title={`Peta lokasi ${event.title}`}
-                  src={mapsEmbedUrl(event.mapsQuery)}
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                  className="h-52 w-full border-0"
-                />
+                <MapEmbed query={event.mapsQuery} title={`Peta lokasi ${event.title}`} />
               </article>
             </Reveal>
           );

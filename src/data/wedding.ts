@@ -164,11 +164,17 @@ export const wedding: Wedding = {
       detail: "Jl. Melati No. 12, RT 03/RW 05, Kel. Tegal Gundil, Kec. Bogor Utara, Kota Bogor 16152",
     },
   },
-  music: "https://www.youtube.com/watch?v=oXUE7fjyYlg",
-  musicCredit: "“Teman Hidup” – Tulus · Instrumental cover oleh La Oficio Entertainment",
-  // Alternatif: versi piano dengan vokal Tulus
-  // music: "https://www.youtube.com/watch?v=5owD43PpvpE",
-  // musicCredit: "“Teman Hidup (Piano Version)” – Tulus × Bridestory",
+  music: "https://www.youtube.com/watch?v=1WCIrw85zbQ",
+  musicCredit: "“I Wanna Grow Old with You” – Westlife",
+  // Alternatif: Beautiful In White (piano, tanpa vokal)
+  // music: "https://www.youtube.com/watch?v=xwqIpktXh2k",
+  // musicCredit: "“Beautiful In White” – Shane Filan · Piano version oleh Pianaura",
+  // Alternatif: mashup piano Beautiful in White × Canon in D
+  // music: "https://www.youtube.com/watch?v=tX73H2FRcK8",
+  // musicCredit: "“Beautiful in White × Canon in D” – Piano cover oleh Riyandi Kusuma",
+  // Alternatif: Teman Hidup – Tulus (instrumental)
+  // music: "https://www.youtube.com/watch?v=oXUE7fjyYlg",
+  // musicCredit: "“Teman Hidup” – Tulus · Instrumental cover oleh La Oficio Entertainment",
   // Alternatif bebas lisensi (sudah tersedia di public/music):
   // music: "/music/canon-in-d.mp3",
   // musicCredit: "“Canon in D Major” – Kevin MacLeod (incompetech.com) · CC BY 3.0",

@@ -32,10 +32,10 @@ export default function BottomNav({ visible }: { visible: boolean }) {
   return (
     <nav
       className={`fixed bottom-4 left-1/2 z-40 -translate-x-1/2 transition-all duration-700 lg:left-auto lg:right-[240px] lg:translate-x-1/2 ${
-        visible ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-24 opacity-0"
+        visible ? "translate-y-0 opacity-100 delay-[2400ms]" : "pointer-events-none translate-y-24 opacity-0"
       }`}
     >
-      <ul className="flex items-center gap-1 rounded-full border border-gold/20 bg-white/85 p-1.5 shadow-lg shadow-ink/10 backdrop-blur-md">
+      <ul className="flex items-center gap-1 rounded-full border border-gold/20 bg-white/95 p-1.5 shadow-lg shadow-ink/10">
         {ITEMS.map(({ id, label, Icon }) => (
           <li key={id}>
             <a

@@ -84,7 +84,7 @@ export default function Gift() {
       {qris && (
         <Reveal className="mx-auto mt-8 max-w-xs text-center">
           <p className="mb-3 font-serif text-xl font-semibold">Scan QRIS</p>
-          <img src={qris} alt="QRIS" className="w-full rounded-2xl border border-gold/30 bg-white p-4" />
+          <img decoding="async" src={qris} alt="QRIS" className="w-full rounded-2xl border border-gold/30 bg-white p-4" />
         </Reveal>
       )}
 

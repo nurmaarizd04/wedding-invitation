@@ -179,7 +179,9 @@ export default function Wishes() {
           </button>
         </form>
 
-        <div className="mt-8 max-h-[30rem] space-y-4 overflow-y-auto pr-1">
+        <div
+          data-lenis-prevent
+          className="mt-8 max-h-[30rem] space-y-4 overflow-y-auto pr-1">
           {loading && <p className="py-6 text-center text-sm text-muted">Memuat ucapan...</p>}
           {loadError && (
             <p className="py-6 text-center text-sm text-rose-600">Ucapan gagal dimuat. Coba muat ulang halaman.</p>

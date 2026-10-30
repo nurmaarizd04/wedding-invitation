@@ -1,7 +1,7 @@
 import { wedding } from "@/data/wedding";
 import Reveal from "../Reveal";
 import { HeartIcon } from "../icons";
-import { SectionTitle } from "../ui";
+import { REVEAL_ZOOM, SectionTitle } from "../ui";
 
 export default function Story() {
   const { story } = wedding;
@@ -22,7 +22,15 @@ export default function Story() {
             <Reveal delay={i * 100}>
               <div className="overflow-hidden rounded-2xl bg-cream shadow-sm">
                 {item.photo && (
-                  <img src={item.photo} alt={item.title} loading="lazy" className="aspect-[16/9] w-full object-cover" />
+                  <div className="aspect-[16/9] overflow-hidden">
+                    <img
+                      decoding="async"
+                      src={item.photo}
+                      alt={item.title}
+                      loading="lazy"
+                      className={`h-full w-full object-cover ${REVEAL_ZOOM}`}
+                    />
+                  </div>
                 )}
                 <div className="p-5">
                   <p className="text-xs font-medium uppercase tracking-[0.2em] text-gold-dark">{item.date}</p>

@@ -23,18 +23,26 @@ export function ArchPhoto({
   src,
   alt,
   className = "",
+  imgClassName = "",
 }: {
   src: string;
   alt: string;
   className?: string;
+  imgClassName?: string;
 }) {
   return (
     <div className={`relative ${className}`}>
       <div className="absolute inset-0 translate-x-2.5 translate-y-2.5 rounded-t-full border border-gold/60" />
-      <img src={src} alt={alt} className="relative h-full w-full rounded-t-full object-cover shadow-xl" />
+      <div className="relative h-full w-full overflow-hidden rounded-t-full shadow-xl">
+        <img decoding="async" src={src} alt={alt} className={`h-full w-full object-cover ${imgClassName}`} />
+      </div>
     </div>
   );
 }
+
+/** Foto di dalam <Reveal> yang ikut zoom-out halus saat muncul. */
+export const REVEAL_ZOOM =
+  "scale-125 transition-transform duration-[2200ms] ease-out-expo will-change-transform group-data-[visible=true]/reveal:scale-100";
 
 /** Pemisah bergelombang di bagian bawah sebuah section. */
 export function Wave({ className = "fill-cream" }: { className?: string }) {

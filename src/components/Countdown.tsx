@@ -38,7 +38,7 @@ export default function Countdown({ target }: { target: string }) {
       {Object.entries(units).map(([label, value]) => (
         <div
           key={label}
-          className="w-16 rounded-2xl border border-white/30 bg-white/10 py-3 backdrop-blur-sm sm:w-20"
+          className="w-16 rounded-2xl border border-white/30 bg-black/25 py-3 sm:w-20"
         >
           <p className="font-serif text-2xl font-semibold tabular-nums sm:text-3xl">
             {remaining ? String(value).padStart(2, "0") : "--"}

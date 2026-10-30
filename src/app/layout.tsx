@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Cormorant_Garamond, Great_Vibes, Poppins } from "next/font/google";
 import { wedding } from "@/data/wedding";
 import { formatDate } from "@/lib/format";
+import "lenis/dist/lenis.css";
 import "./globals.css";
 
 const script = Great_Vibes({

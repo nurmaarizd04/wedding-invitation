@@ -10,7 +10,13 @@ export type MusicController = {
   destroy: () => void;
 };
 
-type YTPlayer = { playVideo(): void; pauseVideo(): void; destroy(): void };
+type YTPlayer = {
+  playVideo(): void;
+  pauseVideo(): void;
+  destroy(): void;
+  setVolume(volume: number): void;
+  unMute(): void;
+};
 type YTNamespace = {
   Player: new (el: HTMLElement, options: object) => YTPlayer;
   PlayerState: { ENDED: number; PLAYING: number; PAUSED: number };
@@ -77,6 +83,13 @@ function createYouTubeMusic(
   const mount = document.createElement("div");
   container.appendChild(mount);
 
+  // Player YouTube mengingat volume terakhir pengunjung di youtube.com, jadi paksa ke maksimum
+  const playLoud = () => {
+    player?.unMute();
+    player?.setVolume(100);
+    player?.playVideo();
+  };
+
   loadYouTubeApi().then((YT) => {
     if (destroyed) return;
     player = new YT.Player(mount, {
@@ -88,7 +101,7 @@ function createYouTubeMusic(
       events: {
         onReady: () => {
           ready = true;
-          if (wantPlay) player?.playVideo();
+          if (wantPlay) playLoud();
         },
         onStateChange: ({ data }: { data: number }) => {
           if (data === YT.PlayerState.PLAYING) onPlayingChange(true);
@@ -101,7 +114,7 @@ function createYouTubeMusic(
   return {
     play: () => {
       wantPlay = true;
-      if (ready) player?.playVideo();
+      if (ready) playLoud();
     },
     pause: () => {
       wantPlay = false;

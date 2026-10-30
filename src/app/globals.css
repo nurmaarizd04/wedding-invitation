@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/* Aktif setelah tombol "Buka Undangan" diklik (lihat InvitationShell) */
+@custom-variant opened (&:where([data-opened="true"] *));
+
 @theme {
   --color-cream: #fbf7f1;
   --color-sand: #f3ebdf;
@@ -13,10 +16,18 @@
   --color-ink: #3f3a34;
   --color-muted: #7a7166;
 
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-door: cubic-bezier(0.77, 0, 0.175, 1);
+
   --animate-sway: sway 7s ease-in-out infinite;
   --animate-fall: fall 14s linear infinite;
-  --animate-kenburns: kenburns 18s ease-out forwards;
   --animate-float: float 4s ease-in-out infinite;
+  --animate-kenburns: kb-1 20s ease-in-out infinite alternate;
+  --animate-kb-1: kb-1 12s linear forwards;
+  --animate-kb-2: kb-2 12s linear forwards;
+  --animate-kb-3: kb-3 12s linear forwards;
+  --animate-burst: burst 1.8s var(--ease-out-expo) both;
+  --animate-seam: seam 1.2s ease-in-out forwards;
 
   @keyframes sway {
     0%,
@@ -30,24 +41,15 @@
 
   @keyframes fall {
     0% {
-      transform: translate(0, -5vh) rotate(0deg);
+      transform: translate3d(0, -5vh, 0) rotate(0deg);
       opacity: 0;
     }
     10% {
       opacity: 0.9;
     }
     100% {
-      transform: translate(80px, 105vh) rotate(540deg);
+      transform: translate3d(80px, 105vh, 0) rotate(540deg);
       opacity: 0;
-    }
-  }
-
-  @keyframes kenburns {
-    from {
-      transform: scale(1);
-    }
-    to {
-      transform: scale(1.12);
     }
   }
 
@@ -60,6 +62,69 @@
       transform: translateY(-6px);
     }
   }
+
+  /* Ken Burns: zoom & geser perlahan, tiga variasi arah */
+  @keyframes kb-1 {
+    from {
+      transform: scale(1) translate3d(0, 0, 0);
+    }
+    to {
+      transform: scale(1.15) translate3d(-2%, -1.5%, 0);
+    }
+  }
+
+  @keyframes kb-2 {
+    from {
+      transform: scale(1.18) translate3d(2%, 1%, 0);
+    }
+    to {
+      transform: scale(1.02) translate3d(0, 0, 0);
+    }
+  }
+
+  @keyframes kb-3 {
+    from {
+      transform: scale(1.04) translate3d(-2%, 1%, 0);
+    }
+    to {
+      transform: scale(1.16) translate3d(2%, -1%, 0);
+    }
+  }
+
+  /* Percikan kilau & kelopak saat undangan dibuka */
+  @keyframes burst {
+    0% {
+      transform: translate(-50%, -50%) scale(0.2) rotate(0deg);
+      opacity: 0;
+    }
+    12% {
+      opacity: 1;
+    }
+    100% {
+      transform: translate(calc(-50% + var(--tx)), calc(-50% + var(--ty))) scale(1) rotate(var(--rot));
+      opacity: 0;
+    }
+  }
+
+  /* Garis cahaya emas di celah pintu */
+  @keyframes seam {
+    0% {
+      transform: scaleY(0);
+      opacity: 0;
+    }
+    35% {
+      transform: scaleY(1);
+      opacity: 1;
+    }
+    65% {
+      transform: scaleY(1) scaleX(1);
+      opacity: 1;
+    }
+    100% {
+      transform: scaleY(1) scaleX(40);
+      opacity: 0;
+    }
+  }
 }
 
 @theme inline {
@@ -68,24 +133,24 @@
   --font-sans: var(--font-poppins);
 }
 
-html {
-  scroll-behavior: smooth;
-}
-
 body {
   color: var(--color-ink);
   background-color: var(--color-sand);
   background-image:
     radial-gradient(circle at 20% 10%, rgb(232 207 198 / 0.35), transparent 40%),
     radial-gradient(circle at 80% 90%, rgb(138 154 123 / 0.2), transparent 45%);
-  background-attachment: fixed;
 }
 
 @media (prefers-reduced-motion: reduce) {
   .animate-sway,
   .animate-fall,
+  .animate-float,
   .animate-kenburns,
-  .animate-float {
+  .animate-kb-1,
+  .animate-kb-2,
+  .animate-kb-3,
+  .animate-burst,
+  .animate-seam {
     animation: none;
   }
 }

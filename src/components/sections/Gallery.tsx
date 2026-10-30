@@ -4,7 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import { wedding } from "@/data/wedding";
 import Reveal from "../Reveal";
 import { ChevronLeftIcon, ChevronRightIcon, CloseIcon } from "../icons";
-import { SectionTitle } from "../ui";
+import { REVEAL_ZOOM, SectionTitle } from "../ui";
 
 export default function Gallery() {
   const photos = wedding.gallery;
@@ -38,7 +38,7 @@ export default function Gallery() {
         {photos.map((src, i) => {
           const wide = i % 5 === 0;
           return (
-            <Reveal key={src} delay={(i % 2) * 100} className={wide ? "col-span-2" : ""}>
+            <Reveal key={src} variant="zoom" delay={(i % 2) * 150} className={wide ? "col-span-2" : ""}>
               <button
                 type="button"
                 onClick={() => setActive(i)}
@@ -47,12 +47,15 @@ export default function Gallery() {
                 }`}
                 aria-label={`Lihat foto ${i + 1}`}
               >
-                <img
-                  src={src}
-                  alt={`Foto galeri ${i + 1}`}
-                  loading="lazy"
-                  className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
-                />
+                <div className={`h-full w-full ${REVEAL_ZOOM}`}>
+                  <img
+                    decoding="async"
+                    src={src}
+                    alt={`Foto galeri ${i + 1}`}
+                    loading="lazy"
+                    className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                </div>
               </button>
             </Reveal>
           );
@@ -62,11 +65,13 @@ export default function Gallery() {
       {active !== null && (
         <div
           role="dialog"
+          data-lenis-prevent
           aria-modal="true"
           className="fixed inset-0 z-[60] flex items-center justify-center bg-black/90 p-4"
           onClick={close}
         >
           <img
+            decoding="async"
             src={photos[active]}
             alt={`Foto galeri ${active + 1}`}
             className="max-h-[85svh] max-w-full rounded-lg object-contain"

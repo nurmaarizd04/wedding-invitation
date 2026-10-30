@@ -7,7 +7,7 @@ export default function Footer() {
 
   return (
     <footer className="relative overflow-hidden px-8 pb-32 pt-28 text-center text-white">
-      <img src={footerPhoto} alt="" className="absolute inset-0 h-full w-full object-cover" />
+      <img decoding="async" src={footerPhoto} alt="" className="absolute inset-0 h-full w-full object-cover" />
       <div className="absolute inset-0 bg-gradient-to-b from-sand via-black/55 to-black/85" />
 
       <Reveal className="relative">
