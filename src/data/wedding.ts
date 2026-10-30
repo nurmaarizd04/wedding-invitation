@@ -75,6 +75,11 @@ export type Wedding = {
    * Kosongkan jika tidak ada.
    */
   music?: string;
+  /**
+   * Penguat volume untuk file mp3 (1 = volume asli, 2 = dua kali lebih keras).
+   * Tidak berlaku untuk link YouTube — YouTube membatasi & menormalkan volumenya sendiri.
+   */
+  musicBoost?: number;
   /** Kredit musik, wajib diisi jika lisensi lagunya meminta atribusi (misal CC BY) */
   musicCredit?: string;
 };
@@ -186,6 +191,9 @@ export const wedding: Wedding = {
   },
   music: "https://www.youtube.com/watch?v=1WCIrw85zbQ",
   musicCredit: "“I Wanna Grow Old with You” – Westlife",
+  // Agar lebih keras: taruh file lagu di public/music/ lalu ganti `music` ke path-nya,
+  // contoh music: "/music/i-wanna-grow-old-with-you.mp3" — musicBoost di bawah otomatis berlaku.
+  musicBoost: 2,
   // Alternatif: Beautiful In White (piano, tanpa vokal)
   // music: "https://www.youtube.com/watch?v=xwqIpktXh2k",
   // musicCredit: "“Beautiful In White” – Shane Filan · Piano version oleh Pianaura",

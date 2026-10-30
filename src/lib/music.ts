@@ -26,6 +26,7 @@ declare global {
   interface Window {
     YT?: YTNamespace;
     onYouTubeIframeAPIReady?: () => void;
+    webkitAudioContext?: typeof AudioContext;
   }
 }
 
@@ -51,21 +52,47 @@ function loadYouTubeApi() {
   return youTubeApi;
 }
 
-function createAudioMusic(src: string, onPlayingChange: (playing: boolean) => void): MusicController {
+function createAudioMusic(
+  src: string,
+  onPlayingChange: (playing: boolean) => void,
+  boost: number,
+): MusicController {
   const audio = new Audio(src);
   audio.loop = true;
   audio.preload = "auto";
   audio.addEventListener("play", () => onPlayingChange(true));
   audio.addEventListener("pause", () => onPlayingChange(false));
 
+  // Penguat suara via Web Audio: gain × boost, lalu limiter agar tidak pecah.
+  // Dibuat saat play pertama karena browser hanya mengizinkan audio setelah interaksi pengguna.
+  let context: AudioContext | null = null;
+  const connectBoost = () => {
+    if (context || boost <= 1) return;
+    const AudioCtx = window.AudioContext ?? window.webkitAudioContext;
+    if (!AudioCtx) return;
+    context = new AudioCtx();
+    const gain = context.createGain();
+    gain.gain.value = boost;
+    const limiter = context.createDynamicsCompressor();
+    limiter.threshold.value = -2;
+    limiter.knee.value = 0;
+    limiter.ratio.value = 20;
+    limiter.attack.value = 0.003;
+    limiter.release.value = 0.25;
+    context.createMediaElementSource(audio).connect(gain).connect(limiter).connect(context.destination);
+  };
+
   return {
     play: () => {
+      connectBoost();
+      context?.resume();
       audio.play().catch(() => onPlayingChange(false));
     },
     pause: () => audio.pause(),
     destroy: () => {
       audio.pause();
       audio.removeAttribute("src");
+      context?.close();
     },
   };
 }
@@ -128,13 +155,18 @@ function createYouTubeMusic(
   };
 }
 
+/**
+ * @param boost penguat volume untuk file audio (1 = asli). Tidak berlaku untuk YouTube:
+ * volume YouTube maksimal 100 dan dinormalisasi oleh YouTube sendiri.
+ */
 export function createMusic(
   src: string,
   container: HTMLElement,
   onPlayingChange: (playing: boolean) => void,
+  boost = 1,
 ): MusicController {
   const videoId = getYouTubeId(src);
   return videoId
     ? createYouTubeMusic(videoId, container, onPlayingChange)
-    : createAudioMusic(src, onPlayingChange);
+    : createAudioMusic(src, onPlayingChange, boost);
 }

@@ -20,7 +20,7 @@ export default function InvitationShell({ children }: { children: ReactNode }) {
   const playerContainerRef = useRef<HTMLDivElement>(null);
   const musicRef = useRef<MusicController | null>(null);
   const lenisRef = useRef<Lenis | null>(null);
-  const { music } = wedding;
+  const { music, musicBoost } = wedding;
 
   // Smooth scroll (terutama untuk roda mouse), dikunci sampai undangan dibuka
   useEffect(() => {
@@ -42,13 +42,13 @@ export default function InvitationShell({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     if (!music || !playerContainerRef.current) return;
-    const controller = createMusic(music, playerContainerRef.current, setPlaying);
+    const controller = createMusic(music, playerContainerRef.current, setPlaying, musicBoost);
     musicRef.current = controller;
     return () => {
       controller.destroy();
       musicRef.current = null;
     };
-  }, [music]);
+  }, [music, musicBoost]);
 
   const openInvitation = () => {
     setOpened(true);
